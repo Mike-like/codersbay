@@ -22,4 +22,9 @@ A "bay" Program is a space seperated sequence of the following Keywords. "/n", "
 | `stefan`   | Read a character from the input into the value pointed to by the data pointer (untested).                                          |
 | `phil`     | If the value pointed to by the data pointer is zero, then continue execution of the program after the matching `oliver` keyword.   |
 | `oliver`   | If the value pointed to by the data pointer is not zero, then continue execution of the program after the matching `phil` keyword. |
-| `alex`     | debug mode. (not yet implemented)        
+
+## CLI Options
+
+| Option   | Meaning                                                               |
+|----------|-----------------------------------------------------------------------|
+| `--alex` | Verbose mode: Displays detailed information for each command executed |
