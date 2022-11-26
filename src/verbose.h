@@ -4,7 +4,7 @@
 
 #include <stdio.h>
 
-char* get_info(char* command, char dp_old, char dp_new){
+void get_info(char* command, char dp_old, char dp_new){
     if(strcmp(command, "mike") == 0){
         printf("\ncommand: mike -> old value: %i -> shift pointer right -> new value: %i\n", dp_old, dp_new);
     }
@@ -18,7 +18,7 @@ char* get_info(char* command, char dp_old, char dp_new){
         printf("\ncommand: hias -> old value: %i -> decrement value by 1 -> new value: %i\n", dp_old, dp_new);
     }
     else if(strcmp(command, "franky") == 0){
-        printf("\ncommand: franky -> print %i value to console as ASCII:\n", dp_old);
+        printf("\ncommand: franky -> print value to console\n");
     }
     else if(strcmp(command, "stefan") == 0){
         printf("\ncommand: stefan -> old value: %i -> read input -> new value: %i\n", dp_old, dp_new);
@@ -28,5 +28,8 @@ char* get_info(char* command, char dp_old, char dp_new){
     }
     else if(strcmp(command, "oliver") == 0){
         printf("\ncommand: oliver -> ending loop ");
+    }
+    else{
+        printf("Something strange is goint on");
     }
 }

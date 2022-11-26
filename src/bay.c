@@ -8,52 +8,60 @@
 #include "stdbool.h"
 #include "verbose.h"
 
-void codersbay(char* command_pointer, char *input, bool alex_mode);
+void codersbay(char* command_pointer, char *input);
 char* read_file(char* file_name);
-char* get_next_name(char* ptr);
+char* get_next_name(char* ptr, char* command);
 char* move_ptr_previous(char* ptr);
-void usage_check(int argc, char* argv[]);
+void usage_check(int argc);
+
+#define MAX_COMMAND_SIZE 10
+#define DATASIZE 1001
+
+char output_mode = 'c';
+bool alex_mode = false;
 
 int main(int argc, char *argv[]) {
-    usage_check(argc, argv);
+    usage_check(argc);
     char* file;
-    bool alex_mode = false;
     if (argv[1][0] == '-'){
-        file = argv[2];
-        if (strcmp(argv[1], "--alex") == 0){
-            alex_mode = true;
-            printf("Verbose mode activated!\nBefore we can understand the codersbay programming language,\n"
-                   "we have know ... what is physics.\ On a warm summer evening in ancient greece....");
+        for (int i = 1; i < argc; i++){
+            if (strcmp(argv[i], "--alex") == 0){
+                alex_mode = true;
+                printf("Verbose mode activated!\nBefore we can understand the codersbay programming language,\n"
+                       "we have to know ... what is physics.\n On a warm summer evening in ancient greece....");
+            }
+            else if (strstr(argv[i], "--doris")){
+                output_mode = *(argv[i]+8);
+            }
         }
     }
-    else{
-        file = argv[1];
-    }
+    file = argv[argc-1];
     char* code = read_file(file);
     char* input = "";
-    codersbay(code, input, alex_mode);
+    codersbay(code, input);
     return 0;
 }
 
-void usage_check(int argc, char* argv[]){
+void usage_check(int argc){
     if(argc < 2){
         printf("Usage: bay <source.cbl>");
         exit(1);
     }
 }
 
-#define DATASIZE 1001
-void codersbay(char* command_pointer, char* input, bool alex_mode) {
+void codersbay(char* command_pointer, char* input) {
+//    command_pointer+='\n';
     int bracket_flag;
     int shift = 0;
     char data[DATASIZE] = {0};
     char* dp;
     dp = &data[DATASIZE / 2];
-    char *command;
+    char* command;
 
-    while (*command_pointer+shift+1 != NULL && *command_pointer != 0)
+    while (*command_pointer+shift+1 != '\n' && *command_pointer != 0)
     {
-        command = get_next_name(command_pointer);
+        command = malloc(MAX_COMMAND_SIZE);
+        get_next_name(command_pointer, command);
         if (strcmp(command, "mike") == 0) {
             if(alex_mode){
                 char old_dp = *dp;
@@ -96,9 +104,13 @@ void codersbay(char* command_pointer, char* input, bool alex_mode) {
         }
         else if(strcmp(command, "franky") == 0){
             if(alex_mode){
-                get_info(command, *dp, NULL);
+                get_info(command, *dp, 0);
             }
-            printf("%c", *dp);
+            switch (output_mode) {
+                case 'd': printf("%d\n", *dp); break;
+                default: printf("%c", *dp); break;
+            }
+
         }
         else if(strcmp(command, "stefan") == 0){
             if(alex_mode){
@@ -109,24 +121,26 @@ void codersbay(char* command_pointer, char* input, bool alex_mode) {
         }
         else if(strcmp(command, "phil") == 0){
             if(alex_mode){
-                get_info(command, NULL, NULL);
+                get_info(command, 0, 0);
             }
             if (!*dp) {
                 bracket_flag = 1;
                 while(bracket_flag){
-                    char *loopname = get_next_name(command_pointer);
+                    char* loopname = malloc(MAX_COMMAND_SIZE);
+                    loopname = get_next_name(command_pointer, loopname);
                     if (strcmp(loopname, "phil") == 0) {
                         bracket_flag++;
                     }
                     else if (strcmp(loopname, "oliver") == 0) {
                         bracket_flag--;
                     }
+                    free(loopname);
                 }
             }
         }
         else if(strcmp(command, "oliver") == 0){
             if(alex_mode){
-                get_info(command, NULL, NULL);
+                get_info(command, 0, 0);
             }
             if (*dp) {
                 //Move Pointer to last phil
@@ -135,20 +149,24 @@ void codersbay(char* command_pointer, char* input, bool alex_mode) {
                 bracket_flag = 1;
                 while(bracket_flag){
                     command_pointer = move_ptr_previous(command_pointer);
-                    char *loopname = get_next_name(command_pointer);
+                    char* loopname = malloc(MAX_COMMAND_SIZE);
+                    loopname = get_next_name(command_pointer, loopname);
                     if (strcmp(loopname, "oliver") == 0){
                         bracket_flag++;
                     }
                     else if (strcmp(loopname, "phil") == 0){
                         bracket_flag--;
                     }
+                    free(loopname);
                 }
             }
         }
-
-        command = get_next_name(command_pointer);
+        free(command);
+        command = malloc(MAX_COMMAND_SIZE);
+        command = get_next_name(command_pointer, command);
         shift = strlen(command);
         command_pointer+=shift+1;
+        free(command);
     }
 
     printf("\n");
@@ -179,18 +197,18 @@ char* read_file(char* file_name)
     exit(1);
 }
 
-char* get_next_name(char* ptr){
+char* get_next_name(char* ptr, char* command){
     int len = 0;
-    char name[10] = {0};
     while(*ptr != ' '){
-        if(*ptr == NULL){
+        if(*ptr == 0){
             break;
         }
-        name[len] = *ptr;
+        command[len] = *ptr;
+        //command = *ptr;
         len++; ptr++;
     }
-    name[len] = '\0';
-    return name;
+    command+='\0';
+    return command;
 }
 
 char* move_ptr_previous(char* ptr){

@@ -25,6 +25,7 @@ A "bay" Program is a space seperated sequence of the following Keywords. "/n", "
 
 ## CLI Options
 
-| Option   | Meaning                                                               |
-|----------|-----------------------------------------------------------------------|
-| `--alex` | Verbose mode: Displays detailed information for each command executed |
+| Option    | Meaning                                                               |
+|-----------|-----------------------------------------------------------------------|
+| `--alex`  | Verbose mode: Displays detailed information for each command executed |
+| `--doris` | Changes the output mode. Usage: --doris="`<type>`". Valid types are "d" decimal "c" char. Default is char.|
