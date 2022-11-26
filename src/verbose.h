@@ -30,6 +30,6 @@ void get_info(char* command, char dp_old, char dp_new){
         printf("\ncommand: oliver -> ending loop ");
     }
     else{
-        printf("Something strange is goint on");
+        printf("Something strange is going on");
     }
 }

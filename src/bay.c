@@ -50,7 +50,6 @@ void usage_check(int argc){
 }
 
 void codersbay(char* command_pointer, char* input) {
-//    command_pointer+='\n';
     int bracket_flag;
     int shift = 0;
     char data[DATASIZE] = {0};
@@ -107,7 +106,8 @@ void codersbay(char* command_pointer, char* input) {
                 get_info(command, *dp, 0);
             }
             switch (output_mode) {
-                case 'd': printf("%d\n", *dp); break;
+                case 'd': printf("%d", *dp); break;
+                case 'x': printf("%x", *dp); break;
                 default: printf("%c", *dp); break;
             }
 
@@ -164,7 +164,7 @@ void codersbay(char* command_pointer, char* input) {
         free(command);
         command = malloc(MAX_COMMAND_SIZE);
         command = get_next_name(command_pointer, command);
-        shift = strlen(command);
+        shift = (int)strlen(command);
         command_pointer+=shift+1;
         free(command);
     }
@@ -204,7 +204,6 @@ char* get_next_name(char* ptr, char* command){
             break;
         }
         command[len] = *ptr;
-        //command = *ptr;
         len++; ptr++;
     }
     command+='\0';

@@ -2,10 +2,10 @@
 codersbay is a (work in progress) esoteric programming language based on [Brainfuck](
 https://en.wikipedia.org/wiki/Brainfuck).
 
-| Key | Value                                                                                                                                                        |
-| --- |--------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Version | 0.0.1                                                                                                                                                        |
-| Author | Michael Bockel (Mike-like)                                                                                                                                   |
+| Key     | Value                                                                                                                                                             |
+|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Version | 0.0.1                                                                                                                                                             |
+| Author  | Michael Bockel (Mike-like)                                                                                                                                        |
 | License | GNU General Public License (Version 3) https://www.gnu.org/licenses/gpl-3.0.en.html <br/>This license applies to the specification and not code written using it. |    
 
 ## Keywords
@@ -25,7 +25,7 @@ A "bay" Program is a space seperated sequence of the following Keywords. "/n", "
 
 ## CLI Options
 
-| Option    | Meaning                                                               |
-|-----------|-----------------------------------------------------------------------|
-| `--alex`  | Verbose mode: Displays detailed information for each command executed |
-| `--doris` | Changes the output mode. Usage: --doris="`<type>`". Valid types are "d" decimal "c" char. Default is char.|
+| Option    | Meaning                                                                                                              |
+|-----------|----------------------------------------------------------------------------------------------------------------------|
+| `--alex`  | Verbose mode: Displays detailed information for each command executed                                                |
+| `--doris` | Changes the output mode. Usage: --doris="`<type>`". Valid types are "d" decimal, "c" char, "x" hex. Default is char. |
